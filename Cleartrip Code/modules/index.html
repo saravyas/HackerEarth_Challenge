@@ -1,0 +1,206 @@
+<html>
+
+<head>
+    <title>Hackathon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu+Condensed' rel='stylesheet'>
+
+</head>
+<style>
+    body {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <div class="table-responsive" ng-app="pseudoApp" ng-controller="pseudoCtrl">
+        <h1 align="center">Kickstarter</h1>
+        <form>
+            <label>
+                <h2> Based on Your Wish</h2>
+            </label>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search " ng-model="searchValue">
+                </div>
+            </div>
+        </form>
+        <form>
+            <label>
+                <h2>Search Based on Location</h2>
+            </label>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search Location" ng-model="searchlocation.location">
+                </div>
+            </div>
+        </form>
+        <h3 align=center>Kickstarter Project Data</h3>
+        <table class="table table-bordered table-striped table-hover">
+
+            <thead>
+                <tr>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('s.no')">
+                            S.no
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='s.no'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('amt.pledged')">
+                            Amount Pledeged
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='amt.pledged'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('blurb')">
+                            Project Blurb
+
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='blurb'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('by')">
+                            Project Creator
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='by'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('country')">
+                            Country
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='country'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('currency')">
+                            Currency
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='currency'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('end.time')">
+                            Campaign End Time
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='end.time'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button id="result" class="btn btn-info" ng-click="sort('location')">
+                            City
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='location'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('percentage.funded')">
+                            Percentage Funded
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='percentage.funded'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('num.backers')">
+                            Total Number of Backers
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='num.backers'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('state')">
+                            State
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='state'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('title')">
+                            Project Title
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='title'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('type')">
+                            Type of Location
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='type'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" ng-click="sort('url')">
+                            Domain Url
+                            <span class="glyphicon sort-icon" ng-show="sortBy=='url'" ng-class="{'glyphicon-chevron-up':sortReverse,'glyphicon-chevron-down':!sortReverse}"></span>
+                        </button>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="person in persons  | orderBy:sortBy:sortReverse | filter:searchValue | filter:searchlocation | itemsPerPage:5 ">
+                    <td>
+                        {{person['s.no']}}
+                    </td>
+                    <td>
+                        {{person['amt.pledged']}}
+                    </td>
+                    <td>
+                        {{person.blurb}}
+                    </td>
+                    <td>
+                        {{person.by}}
+                    </td>
+                    <td>
+                        {{person.country}}
+                    </td>
+                    <td>
+                        {{person.currency}}
+                    </td>
+                    <td>
+                        {{person['end.time']}}
+                    </td>
+                    <td>
+                        {{person.location}}
+                    </td>
+                    <td>
+                        {{person['percentage.funded']}}
+                    </td>
+                    <td>
+                        {{person['num.backers']}}
+                    </td>
+                    <td>
+                        {{person.state}}
+                    </td>
+                    <td>
+                        {{person.title}}
+                    </td>
+                    <td>
+                        {{person.type}}
+                    </td>
+                    <td>
+                        {{person.url}}
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+        </table>
+        <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true">
+        </dir-pagination-controls>
+    </div>
+
+    <script src="./libs/angular.min.js"></script>
+    <script src="https://rawgit.com/michaelbromley/angularUtils-pagination/master/dirPagination.js"></script>
+    <script src="./controller/controller.js"></script>
+
+
+
+
+
+
+    </div>
+</body>
+
+</html>
